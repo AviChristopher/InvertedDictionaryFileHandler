@@ -1,0 +1,9 @@
+This Python script processes data from a text file, converts it into a dictionary, inverts the dictionary (swapping keys and values), and writes the result to a new file.
+
+readfile(): Reads a text file and converts its contents into a dictionary, splitting keys and values by a colon and handling multiple values as lists. It uses error handling to manage potential file-related issues.
+
+invertDict(): Inverts the dictionary by making the values the new keys and grouping related keys as list values. It ensures that no more than three items are added for each new key.
+
+writefile(): Writes the inverted dictionary to a new file, handling errors if any issues occur during the writing process.
+
+This script ensures error handling at every step and processes file data efficiently for future use.
