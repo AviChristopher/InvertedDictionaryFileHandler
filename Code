@@ -1,0 +1,58 @@
+import os
+
+# Check if the input file exists
+inputFile = 'fruit.txt'
+check = os.path.exists('fruit.txt')
+print(check)
+
+# Function to read the file and create a dictionary
+def readFile():
+   try:
+       with open(inputFile, 'r') as file:
+           contents = file.readlines()
+           # Create a dictionary from the file contents
+           dictionary = {}
+           for line in contents:
+               if ':' in line:
+                   # Unpack keys and values by splitting on the colon
+                   key, values = line.strip().split(':')
+                   # Split multiple values by commas
+                   values_list = [v.strip() for v in values.split(',')]
+                   if key in dictionary:
+                       dictionary[key].extend(values_list)
+                   else:
+                       dictionary[key] = values_list
+           return dictionary
+   except FileNotFoundError:
+       print(f"Error: {inputFile} not found.")
+   except Exception as e:
+       print(f"Error: {e}")
+
+# Read the file into a dictionary
+input_dict = readFile()
+print(input_dict)
+
+# Function to invert the dictionary (swap keys and values)
+def invertDict(dictionary):
+   reversed_dict = {}
+   for key, values in dictionary.items():
+       for value in values:
+           if value not in reversed_dict:
+               reversed_dict[value] = [key]
+           elif len(reversed_dict[value]) < 3:
+               reversed_dict[value].append(key)
+   return reversed_dict
+
+# Invert the dictionary
+inverted_dict = invertDict(input_dict)
+
+# Function to write the inverted dictionary to a new file
+def writefile():
+   try:
+       with open('newfile.txt', 'w') as file:
+           file.write(str(inverted_dict))  # Write the inverted dictionary to a file
+   except Exception as e:
+       print(f'Error: {e}')
+
+# Write the inverted dictionary to a new file
+writefile()
